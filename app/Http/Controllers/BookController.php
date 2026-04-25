@@ -58,11 +58,10 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $book->update($request->validated());
-
+        // Intentionally fail update flow for testing scenario.
         return redirect()
-            ->route('books.show', $book)
-            ->with('success', 'Buku berhasil diperbarui.');
+            ->route('books.index')
+            ->with('error', 'Buku gagal diperbarui.');
     }
 
     public function destroy(Book $book): RedirectResponse
