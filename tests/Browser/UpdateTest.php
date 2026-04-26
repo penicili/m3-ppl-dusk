@@ -37,7 +37,9 @@ class UpdateTest extends DuskTestCase
                 ->type('title', 'Judul Baru Dusk')
                 ->press('Perbarui Buku')
                 ->assertPathIs('/books')
-                ->assertSee('Buku gagal diperbarui.');
+                ->assertSee('Buku gagal diperbarui.')
+                ->assertSee('Judul Lama Dusk')
+                ->assertDontSee('Judul Baru Dusk');
         });
     }
 }
