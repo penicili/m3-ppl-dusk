@@ -10,7 +10,7 @@ class UpdateTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function test_update_book_shows_error_message_and_returns_to_dashboard(): void
+    public function test_update_book_rejects_author_with_digits(): void
     {
         $user = User::factory()->create();
 
@@ -19,8 +19,8 @@ class UpdateTest extends DuskTestCase
                 ->visit('/books')
                 ->clickLink('Tambah Buku')
                 ->assertPathIs('/books/create')
-                ->type('title', 'Judul Lama Dusk')
-                ->type('author', 'Penulis Lama')
+                ->type('title', 'Judul Awal Dusk')
+                ->type('author', 'Penulis Awal')
                 ->select('category', 'Novel')
                 ->type('published_year', '2023')
                 ->type('stock', '3')
@@ -28,12 +28,12 @@ class UpdateTest extends DuskTestCase
                 ->press('Simpan Buku')
                 ->assertSee('Buku berhasil ditambahkan.')
                 ->clickLink('Edit Buku')
-                ->type('title', 'Judul Baru Dusk')
+                ->type('author', 'Penulis 123')
                 ->press('Perbarui Buku')
-                ->assertPathIs('/books')
-                ->assertSee('Buku gagal diperbarui.')
-                ->assertSee('Judul Lama Dusk')
-                ->assertDontSee('Judul Baru Dusk');
+                ->assertSee('Penulis tidak boleh mengandung angka.')
+                ->visit('/books')
+                ->assertSee('Penulis Awal')
+                ->assertDontSee('Penulis 123');
         });
     }
 }
