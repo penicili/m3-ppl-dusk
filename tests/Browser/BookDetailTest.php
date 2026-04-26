@@ -12,17 +12,11 @@ class BookDetailTest extends DuskTestCase
 
     public function test_user_can_open_book_detail_page(): void
     {
-        User::factory()->create([
-            'email' => 'dusk.detail@example.test',
-            'password' => bcrypt('password123'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->browse(function ($browser): void {
-            $browser->visit('/login')
-                ->type('email', 'dusk.detail@example.test')
-                ->type('password', 'password123')
-                ->press('Login')
-                ->assertPathIs('/books')
+        $this->browse(function ($browser) use ($user): void {
+            $browser->loginAs($user)
+                ->visit('/books')
                 ->clickLink('Tambah Buku')
                 ->assertPathIs('/books/create')
                 ->type('title', 'Buku Detail Dusk')

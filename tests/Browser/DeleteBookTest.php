@@ -12,17 +12,11 @@ class DeleteBookTest extends DuskTestCase
 
     public function test_user_can_delete_book_from_index(): void
     {
-        User::factory()->create([
-            'email' => 'dusk.delete@example.test',
-            'password' => bcrypt('password123'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->browse(function ($browser): void {
-            $browser->visit('/login')
-                ->type('email', 'dusk.delete@example.test')
-                ->type('password', 'password123')
-                ->press('Login')
-                ->assertPathIs('/books')
+        $this->browse(function ($browser) use ($user): void {
+            $browser->loginAs($user)
+                ->visit('/books')
                 ->clickLink('Tambah Buku')
                 ->assertPathIs('/books/create')
                 ->type('title', 'Buku Hapus Dusk')

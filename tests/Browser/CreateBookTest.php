@@ -12,17 +12,11 @@ class CreateBookTest extends DuskTestCase
 
     public function test_user_can_create_book_from_form(): void
     {
-        User::factory()->create([
-            'email' => 'dusk.create@example.test',
-            'password' => bcrypt('password123'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->browse(function ($browser): void {
-            $browser->visit('/login')
-                ->type('email', 'dusk.create@example.test')
-                ->type('password', 'password123')
-                ->press('Login')
-                ->assertPathIs('/books')
+        $this->browse(function ($browser) use ($user): void {
+            $browser->loginAs($user)
+                ->visit('/books')
                 ->clickLink('Tambah Buku')
                 ->assertPathIs('/books/create')
                 ->type('title', 'Buku Dusk Baru')

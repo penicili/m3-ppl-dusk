@@ -12,18 +12,11 @@ class LogoutTest extends DuskTestCase
 
     public function test_user_can_logout_after_login(): void
     {
-        User::factory()->create([
-            'name' => 'Logout User',
-            'email' => 'dusk.logout@example.test',
-            'password' => bcrypt('password123'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->browse(function ($browser): void {
-            $browser->visit('/login')
-                ->type('email', 'dusk.logout@example.test')
-                ->type('password', 'password123')
-                ->press('Login')
-                ->assertPathIs('/books')
+        $this->browse(function ($browser) use ($user): void {
+            $browser->loginAs($user)
+                ->visit('/books')
                 ->click('.user-icon-btn')
                 ->press('Logout')
                 ->assertPathIs('/login')
