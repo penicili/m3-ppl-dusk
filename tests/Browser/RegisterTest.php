@@ -2,12 +2,12 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+// use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
 
     public function test_user_can_register_and_redirect_to_books_index(): void
     {

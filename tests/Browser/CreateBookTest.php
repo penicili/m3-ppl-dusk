@@ -3,12 +3,12 @@
 namespace Tests\Browser;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+// use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 
 class CreateBookTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
 
     public function test_user_can_create_book_from_form(): void
     {

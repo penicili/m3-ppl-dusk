@@ -3,12 +3,12 @@
 namespace Tests\Browser;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+// use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\DuskTestCase;
 
 class DeleteBookTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
 
     public function test_user_can_delete_book_from_index(): void
     {
